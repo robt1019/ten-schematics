@@ -1,0 +1,13 @@
+{
+  // This is just to indicate to your IDE that there is a schema for collection.json.
+  "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
+
+  "extends": "@nrwl/schematics",
+  "schematics": {
+    "ngrx": {
+      "factory": "./ngrx",
+      "description": "generates a reducer file",
+      "schema": "./ngrx/schema.json"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsForTenNgrx",
+  "title": "Ten Ngrx Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "default": "name"
+    }
+  }
+}

@@ -1,29 +1,29 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { <%= classify(name) %>Action, <%= classify(name) %>ActionTypes } from './<%= dasherize(name) %>.action';
+import { <%= className %>Action, <%= className %>ActionTypes } from './<%= kebabCaseName %>.action';
 import { HttpErrorResponse } from '@angular/common/http';
 
 // EntityAdapter should be typed based on data being loaded
-const <%= camelize(name) %>Adapter: EntityAdapter<any> = createEntityAdapter<any>();
+const <%= camelizedName %>Adapter: EntityAdapter<any> = createEntityAdapter<any>();
 
-export interface <%= classify(name) %>State extends EntityState<any> {
+export interface <%= className %>State extends EntityState<any> {
     loading: boolean;
     loaded: boolean;
     error: HttpErrorResponse | Error;
 }
 
-export const initial<%= classify(name) %>State = <%= camelize(name) %>Adapter.getInitialState({
+export const initial<%= className %>State = <%= camelizedName %>Adapter.getInitialState({
     loading: false,
     loaded: false,
     error: undefined,
 });
 
-export function <%= classify(name) %>Reducer(state = initial<%= classify(name) %>State, action: <%= classify(name) %>Action) {
+export function <%= className %>Reducer(state = initial<%= className %>State, action: <%= className %>Action) {
 
     switch (action.type) {
 
-        case <%= classify(name) %>ActionTypes.LOAD_DATA: {
-            return <%= camelize(name) %>Adapter.removeAll( {
+        case <%= className %>ActionTypes.LOAD_DATA: {
+            return <%= camelizedName %>Adapter.removeAll( {
                 ...state,
                 loading: true,
                 loaded: false,
@@ -31,9 +31,9 @@ export function <%= classify(name) %>Reducer(state = initial<%= classify(name) %
             });
         }
 
-        case <%= classify(name) %>ActionTypes.LOAD_DATA_SUCCESS: {
-            const <%= camelize(name) %> = action.payload;
-            return <%= camelize(name) %>Adapter.addAll(<%= camelize(name) %>, {
+        case <%= className %>ActionTypes.LOAD_DATA_SUCCESS: {
+            const <%= camelizedName %> = action.payload;
+            return <%= camelizedName %>Adapter.addAll(<%= camelizedName %>, {
                 ...state,
                 loading: false,
                 loaded: true,
@@ -41,9 +41,9 @@ export function <%= classify(name) %>Reducer(state = initial<%= classify(name) %
             });
         }
 
-        case <%= classify(name) %>ActionTypes.LOAD_DATA_FAILURE: {
+        case <%= className %>ActionTypes.LOAD_DATA_FAILURE: {
             const error = action.payload;
-            return <%= camelize(name) %>Adapter.removeAll( {
+            return <%= camelizedName %>Adapter.removeAll( {
                 ...state,
                 loading: false,
                 loaded: false,
@@ -57,11 +57,11 @@ export function <%= classify(name) %>Reducer(state = initial<%= classify(name) %
 }
 
 export const {
-    selectAll: select<%= classify(name) %>
-} = <%= camelize(name) %>Adapter.getSelectors();
+    selectAll: select<%= className %>
+} = <%= camelizedName %>Adapter.getSelectors();
 
 
-export const select<%= classify(name) %>Loading = ((state: <%= classify(name) %>State) => state.loading);
-export const select<%= classify(name) %>Loaded = ((state: <%= classify(name) %>State) => state.loaded);
-export const select<%= classify(name) %>LoadError = ((state: <%= classify(name) %>State) => state.error);
+export const select<%= className %>Loading = ((state: <%= className %>State) => state.loading);
+export const select<%= className %>Loaded = ((state: <%= className %>State) => state.loaded);
+export const select<%= className %>LoadError = ((state: <%= className %>State) => state.error);
 

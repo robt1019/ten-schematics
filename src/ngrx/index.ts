@@ -8,10 +8,11 @@ export default function (options: NgrxOptions) {
     const capitalizedName = capitalize(options.name);
     const fileName = dasherize(options.name);
     const camelizedName = camelize(options.name);
+    const useEntityAdapter = options.entityAdapter;
 
     const templateSource = apply(url('./files'), [
         template({
-            ...options,
+            useEntityAdapter,
             className,
             capitalizedName,
             fileName,

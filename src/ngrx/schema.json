@@ -7,6 +7,12 @@
     "name": {
       "type": "string",
       "default": "name"
+    },
+    "entityAdapter": {
+      "type": "boolean",
+      "default": true,
+      "description": "Flag to indicate whether reducer should use EntityAdapter",
+      "alias": "ea"
     }
   }
 }

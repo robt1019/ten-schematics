@@ -28,7 +28,7 @@ export class LoadDataSuccessAction implements Action {
     constructor(public payload: any) {}
 }
 
-export type ActivitiesAction =
+export type <%= classify(name) %>Action =
     LoadDataAction
     | LoadDataFailureAction
-    | LoadDataAction;
+    | LoadDataSuccessAction;

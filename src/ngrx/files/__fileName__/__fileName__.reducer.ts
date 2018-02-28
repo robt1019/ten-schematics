@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { <%= className %>Action, <%= className %>ActionTypes } from './<%= kebabCaseName %>.action';
+import { <%= className %>Action, <%= className %>ActionTypes } from './<%= fileName %>.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 
 // EntityAdapter should be typed based on data being loaded

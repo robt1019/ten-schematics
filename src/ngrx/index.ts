@@ -6,7 +6,7 @@ export default function (options: NgrxOptions) {
 
     const className = classify(options.name);
     const capitalizedName = capitalize(options.name);
-    const kebabCaseName = dasherize(options.name);
+    const fileName = dasherize(options.name);
     const camelizedName = camelize(options.name);
 
     const templateSource = apply(url('./files'), [
@@ -14,7 +14,7 @@ export default function (options: NgrxOptions) {
             ...options,
             className,
             capitalizedName,
-            kebabCaseName,
+            fileName,
             camelizedName,
         }),
     ]);

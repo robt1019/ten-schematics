@@ -60,11 +60,11 @@ export function <%= fileName %>Reducer(state = initial<%= className %>State, act
     }
 }
 <% if(useEntityAdapter) { %>export const {
-    selectAll: select<%= className %>
+    selectAll: selectData
 } = <%= camelizedName %>Adapter.getSelectors();
 <% } %>
-<% if(!useEntityAdapter) { %>export const select<%= className %> = ((state: <%= className %>State) => state.<%= className %>);
-<% } %>export const select<%= className %>Loading = ((state: <%= className %>State) => state.loading);
-export const select<%= className %>Loaded = ((state: <%= className %>State) => state.loaded);
-export const select<%= className %>LoadError = ((state: <%= className %>State) => state.error);
+<% if(!useEntityAdapter) { %>export const selectData = ((state: <%= className %>State) => state.<%= className %>);
+<% } %>export const selectDataLoading = ((state: <%= className %>State) => state.loading);
+export const selectDataLoaded = ((state: <%= className %>State) => state.loaded);
+export const selectDataLoadError = ((state: <%= className %>State) => state.error);
 

@@ -22,6 +22,7 @@ import { insertImport } from '@schematics/angular/utility/route-utils';
 
 function addImportsToNgModule(options: NgrxOptions): Rule {
     return (host: Tree) => {
+
         if (!options.module) {
             return host;
         }
@@ -49,8 +50,8 @@ function addImportsToNgModule(options: NgrxOptions): Rule {
             insertImport(
                 source,
                 modulePath,
-                `${camelize(options.name)}Reducer`,
-                `./+state/${camelize(options.name)}.reducer`
+                `ActionReducerMap`,
+                `@ngrx/store`
             ),
             insertImport(
                 source,
@@ -67,9 +68,7 @@ function addImportsToNgModule(options: NgrxOptions): Rule {
             ...addImportToModule(
                 source,
                 modulePath,
-                `StoreModule.forFeature('${camelize(options.name)}', {
-                    ${camelize(options.name)}: ${camelize(options.name)}Reducer,
-                })`,
+                `StoreModule.forFeature('${camelize(options.name)}', {} as ActionReducerMap<any>)`,
             ),
             ...addImportToModule(
                 source,
@@ -79,7 +78,7 @@ function addImportsToNgModule(options: NgrxOptions): Rule {
             ...addProviderToModule(
                 source,
                 modulePath,
-                'ActivitiesEffects',
+                `${classify(options.name)}Effects`,
             ),
         ];
 

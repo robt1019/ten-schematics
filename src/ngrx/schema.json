@@ -8,6 +8,10 @@
       "type": "string",
       "default": "name"
     },
+    "module": {
+      "type": "string",
+      "description": "The module to initialise the store in"
+    },
     "useEntityAdapter": {
       "type": "boolean",
       "default": true,

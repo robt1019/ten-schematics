@@ -8,15 +8,14 @@ const <%= camelizedName %>Adapter: EntityAdapter<any> = createEntityAdapter<any>
 
 <% } %>
 export interface <%= className %>State <% if(useEntityAdapter) { %> extends EntityState<any><% } %> {<% if(!useEntityAdapter) { %>
-    data: any;<% } %>
+    <%= className %>: any;<% } %>
     loading: boolean;
     loaded: boolean;
     error: HttpErrorResponse | Error;
 }
 
-
 export const initial<%= className %>State = <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.getInitialState( <% } %> {<% if(!useEntityAdapter) { %>
-    data: undefined,<% } %>
+    <%= className %>: undefined,<% } %>
     loading: false,
     loaded: false,
     error: undefined,

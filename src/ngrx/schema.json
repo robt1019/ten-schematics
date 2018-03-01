@@ -8,7 +8,7 @@
       "type": "string",
       "default": "name"
     },
-    "entityAdapter": {
+    "useEntityAdapter": {
       "type": "boolean",
       "default": true,
       "description": "Flag to indicate whether reducer should use EntityAdapter",

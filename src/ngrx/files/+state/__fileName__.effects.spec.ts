@@ -1,5 +1,4 @@
 import {TestBed} from '@angular/core/testing';
-import {HttpErrorResponse} from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import {Actions} from '@ngrx/effects';
 import {DataPersistence} from "@nrwl/nx";
@@ -9,8 +8,6 @@ import {cold, hot} from 'jasmine-marbles';
 
 import {<%= className %>Effects} from './<%= fileName %>.effects';
 import * as from<%= className %> from './<%= fileName %>.actions';
-
-const mockHttpErrorResponse = new HttpErrorResponse({});
 
 export class TestActions extends Actions {
     constructor() {

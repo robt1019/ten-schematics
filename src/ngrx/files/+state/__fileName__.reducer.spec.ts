@@ -47,12 +47,12 @@ describe('<%= className %>Reducer', () => {
                 expect(selectDataLoading(initial<%= className %>State)).toBe(initial<%= className %>State.loading);
             });
         });
-        describe('select<%= fileName %>Loaded', () => {
+        describe('selectDataLoaded', () => {
             it('should return the loaded slice of state', () => {
                 expect(selectDataLoaded(initial<%= className %>State)).toBe(initial<%= className %>State.loaded);
             });
         });
-        describe('select<%= fileName %>LoadError', () => {
+        describe('selectDataLoadError', () => {
             it('should return the loading slice of state', () => {
                 expect(selectDataLoadError(initial<%= className %>State)).toBe(initial<%= className %>State.error);
             });

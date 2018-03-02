@@ -21,7 +21,7 @@ export const initial<%= className %>State = <% if(useEntityAdapter) { %><%= came
     error: undefined,
 }<% if(useEntityAdapter) { %>)<% } %>;
 
-export function <%= fileName %>Reducer(state = initial<%= className %>State, action: <%= className %>Action) {
+export function <%= camelizedName %>Reducer(state = initial<%= className %>State, action: <%= className %>Action) {
 
     switch (action.type) {
 

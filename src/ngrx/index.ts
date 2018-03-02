@@ -20,7 +20,7 @@ import { Change, InsertChange } from '@schematics/angular/utility/change';
 import { addImportToModule, addProviderToModule } from '@nrwl/schematics';
 import { insertImport } from '@schematics/angular/utility/route-utils';
 
-function addImportsToNgModule(options: NgrxOptions): Rule {
+function addNgrxImportsToNgModule(options: NgrxOptions): Rule {
     return (host: Tree) => {
 
         if (!options.module) {
@@ -124,7 +124,7 @@ export default function (options: NgrxOptions) {
 
         return chain([
             branchAndMerge(chain([
-                addImportsToNgModule(options),
+                addNgrxImportsToNgModule(options),
                 mergeWith(templateSource),
             ])),
         ])(host, context);

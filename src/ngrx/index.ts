@@ -20,10 +20,98 @@ import { Change, InsertChange } from '@schematics/angular/utility/change';
 import { addImportToModule, addProviderToModule } from '@nrwl/schematics';
 import { insertImport } from '@schematics/angular/utility/route-utils';
 
+function insertBaseNgrxImports(source: ts.SourceFile, modulePath: string): Change[] {
+    return [
+        insertImport(
+            source,
+            modulePath,
+            'StoreModule',
+            `@ngrx/store`
+        ),
+        insertImport(
+            source,
+            modulePath,
+            `ActionReducerMap`,
+            `@ngrx/store`
+        ),
+        insertImport(
+            source,
+            modulePath,
+            'EffectsModule',
+            `@ngrx/effects`
+        ),
+    ]
+}
+
+function insertRootNgrxImports(source: ts.SourceFile, name:string, modulePath: string): Change[] {
+    return [
+        ...insertBaseNgrxImports(source, modulePath),
+        insertImport(
+            source,
+            modulePath,
+            'StoreRouterConnectingModule',
+            `@ngrx/router-store`
+        ),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
+        ),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `EffectsModule.forRoot([${classify(name)}Effects])`
+        ),
+    ];
+}
+
+function insertOnlyEmptyRootNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
+    return [
+        ...insertBaseNgrxImports(source, modulePath),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
+        ),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `EffectsModule.forRoot([])`
+        ),
+    ];
+}
+
+function insertFeatureNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
+    return [
+        ...insertBaseNgrxImports(source, modulePath),
+        insertImport(
+            source,
+            modulePath,
+            `${classify(name)}Effects`,
+            `./+state/${camelize(name)}.effects`
+        ),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `StoreModule.forFeature('${camelize(name)}', {} as ActionReducerMap<any>)`,
+        ),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `EffectsModule.forFeature([${classify(name)}Effects])`,
+        ),
+        ...addProviderToModule(
+            source,
+            modulePath,
+            `${classify(name)}Effects`,
+        ),
+    ];
+}
+
 function addNgrxImportsToNgModule(options: NgrxOptions): Rule {
     return (host: Tree) => {
 
-        if (!options.module) {
+        if (options.onlyAddFiles) {
             return host;
         }
 
@@ -40,47 +128,17 @@ function addNgrxImportsToNgModule(options: NgrxOptions): Rule {
 
         const source: ts.SourceFile = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
 
-        const changes: Change[] = [
-            insertImport(
-                source,
-                modulePath,
-                'StoreModule',
-                `@ngrx/store`
-            ),
-            insertImport(
-                source,
-                modulePath,
-                `ActionReducerMap`,
-                `@ngrx/store`
-            ),
-            insertImport(
-                source,
-                modulePath,
-                'EffectsModule',
-                `@ngrx/effects`
-            ),
-            insertImport(
-                source,
-                modulePath,
-                `${classify(options.name)}Effects`,
-                `./+state/${camelize(options.name)}.effects`
-            ),
-            ...addImportToModule(
-                source,
-                modulePath,
-                `StoreModule.forFeature('${camelize(options.name)}', {} as ActionReducerMap<any>)`,
-            ),
-            ...addImportToModule(
-                source,
-                modulePath,
-                `EffectsModule.forFeature([${classify(options.name)}Effects])`,
-            ),
-            ...addProviderToModule(
-                source,
-                modulePath,
-                `${classify(options.name)}Effects`,
-            ),
-        ];
+        let changes: Change[];
+
+        if (options.onlyEmptyRoot) {
+            changes = insertOnlyEmptyRootNgrxImports(source, options.name, modulePath);
+        }
+        else if (options.root) {
+            changes = insertRootNgrxImports(source, options.name, modulePath);
+        }
+        else {
+            changes = insertFeatureNgrxImports(source, options.name, modulePath);
+        }
 
         const recorder = host.beginUpdate(modulePath);
 
@@ -122,12 +180,20 @@ export default function (options: NgrxOptions) {
             move(path.dirname(modulePath)),
         ]);
 
-        return chain([
-            branchAndMerge(chain([
-                addNgrxImportsToNgModule(options),
-                mergeWith(templateSource),
-            ])),
-        ])(host, context);
+        if (options.onlyEmptyRoot) {
+            return chain([
+                branchAndMerge(chain([
+                    addNgrxImportsToNgModule(options),
+                ])),
+            ])(host, context);
+        } else {
+            return chain([
+                branchAndMerge(chain([
+                    addNgrxImportsToNgModule(options),
+                    mergeWith(templateSource),
+                ])),
+            ])(host, context);
+        }
 
     }
 }

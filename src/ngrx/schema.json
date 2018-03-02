@@ -12,6 +12,18 @@
       "type": "string",
       "description": "The module to initialise the store in"
     },
+    "root": {
+      "type": "boolean",
+      "default": false
+    },
+    "onlyEmptyRoot": {
+      "type": "boolean",
+      "default": false
+    },
+    "onlyAddFiles": {
+      "type": "boolean",
+      "default": false
+    },
     "useEntityAdapter": {
       "type": "boolean",
       "default": true,

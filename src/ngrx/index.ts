@@ -17,8 +17,10 @@ import { normalize } from '@angular-devkit/core';
 import * as path from 'path';
 import * as ts from 'typescript';
 import { Change, InsertChange } from '@schematics/angular/utility/change';
-import { addImportToModule, addProviderToModule } from '@nrwl/schematics';
+import { addImportToModule } from '@nrwl/schematics';
 import { insertImport } from '@schematics/angular/utility/route-utils';
+
+import * as ngAstUtils from '@schematics/angular/utility/ast-utils';
 
 function insertBaseNgrxImports(source: ts.SourceFile, modulePath: string): Change[] {
     return [
@@ -43,24 +45,36 @@ function insertBaseNgrxImports(source: ts.SourceFile, modulePath: string): Chang
     ]
 }
 
+function insertBaseRootNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
+   return [
+       ...insertBaseNgrxImports(source, modulePath),
+       ...addImportToModule(
+           source,
+           modulePath,
+               `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
+       ),
+      ]
+}
+
+function insertBaseNgrxFeatureRootImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
+   return [
+       ...ngAstUtils.addProviderToModule(
+           source,
+           modulePath,
+           `${classify(name)}Effects`,
+           `./+state/${dasherize(name)}.effects`,
+       ),
+   ]
+}
+
 function insertRootNgrxImports(source: ts.SourceFile, name:string, modulePath: string): Change[] {
     return [
-        ...insertBaseNgrxImports(source, modulePath),
-        insertImport(
-            source,
-            modulePath,
-            'StoreRouterConnectingModule',
-            `@ngrx/router-store`
-        ),
+        ...insertBaseNgrxFeatureRootImports(source, name, modulePath),
+        ...insertBaseRootNgrxImports(source, name, modulePath),
         ...addImportToModule(
             source,
             modulePath,
-            `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
-        ),
-        ...addImportToModule(
-            source,
-            modulePath,
-            `EffectsModule.forRoot([${classify(name)}Effects])`
+                `EffectsModule.forRoot([${classify(name)}Effects])`
         ),
     ];
 }
@@ -84,12 +98,7 @@ function insertOnlyEmptyRootNgrxImports(source: ts.SourceFile, name: string, mod
 function insertFeatureNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
     return [
         ...insertBaseNgrxImports(source, modulePath),
-        insertImport(
-            source,
-            modulePath,
-            `${classify(name)}Effects`,
-            `./+state/${camelize(name)}.effects`
-        ),
+        ...insertBaseNgrxFeatureRootImports(source, name, modulePath),
         ...addImportToModule(
             source,
             modulePath,
@@ -99,11 +108,6 @@ function insertFeatureNgrxImports(source: ts.SourceFile, name: string, modulePat
             source,
             modulePath,
             `EffectsModule.forFeature([${classify(name)}Effects])`,
-        ),
-        ...addProviderToModule(
-            source,
-            modulePath,
-            `${classify(name)}Effects`,
         ),
     ];
 }

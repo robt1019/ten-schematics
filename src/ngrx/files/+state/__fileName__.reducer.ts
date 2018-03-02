@@ -8,14 +8,14 @@ const <%= camelizedName %>Adapter: EntityAdapter<any> = createEntityAdapter<any>
 
 <% } %>
 export interface <%= className %>State <% if(useEntityAdapter) { %> extends EntityState<any><% } %> {<% if(!useEntityAdapter) { %>
-    <%= className %>: any;<% } %>
+    data: any;<% } %>
     loading: boolean;
     loaded: boolean;
-    error: HttpErrorResponse | Error;
+    error: HttpErrorResponse | Error | undefined;
 }
 
 export const initial<%= className %>State = <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.getInitialState( <% } %> {<% if(!useEntityAdapter) { %>
-    <%= className %>: undefined,<% } %>
+    data : undefined,<% } %>
     loading: false,
     loaded: false,
     error: undefined,
@@ -35,10 +35,10 @@ export function <%= camelizedName %>Reducer(state = initial<%= className %>State
         }
 
         case <%= className %>ActionTypes.LOAD_DATA_SUCCESS: {
-            const <%= camelizedName %> = action.payload;
+            const data = action.payload;
             return <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.addAll(<%= camelizedName %>, <% } %>{
                 ...state,<% if(!useEntityAdapter) { %>
-                <%= camelizedName %>,<% } %>
+                data,<% } %>
                 loading: false,
                 loaded: true,
                 error: undefined,
@@ -63,7 +63,7 @@ export function <%= camelizedName %>Reducer(state = initial<%= className %>State
     selectAll: selectData
 } = <%= camelizedName %>Adapter.getSelectors();
 <% } %>
-<% if(!useEntityAdapter) { %>export const selectData = ((state: <%= className %>State) => state.<%= className %>);
+<% if(!useEntityAdapter) { %>export const selectData = ((state: <%= className %>State) => state.data);
 <% } %>export const selectDataLoading = ((state: <%= className %>State) => state.loading);
 export const selectDataLoaded = ((state: <%= className %>State) => state.loaded);
 export const selectDataLoadError = ((state: <%= className %>State) => state.error);

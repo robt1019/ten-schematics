@@ -45,36 +45,36 @@ function insertBaseNgrxImports(source: ts.SourceFile, modulePath: string): Chang
     ]
 }
 
-function insertBaseRootNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
-   return [
-       ...insertBaseNgrxImports(source, modulePath),
-       ...addImportToModule(
-           source,
-           modulePath,
-               `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
-       ),
-      ]
-}
-
 function insertBaseNgrxFeatureRootImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
-   return [
-       ...ngAstUtils.addProviderToModule(
-           source,
-           modulePath,
-           `${classify(name)}Effects`,
-           `./+state/${dasherize(name)}.effects`,
-       ),
-   ]
+    return [
+        ...ngAstUtils.addProviderToModule(
+            source,
+            modulePath,
+            `${classify(name)}Effects`,
+            `./+state/${dasherize(name)}.effects`,
+        ),
+    ]
 }
 
-function insertRootNgrxImports(source: ts.SourceFile, name:string, modulePath: string): Change[] {
+function insertBaseRootNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
+    return [
+        ...insertBaseNgrxImports(source, modulePath),
+        ...addImportToModule(
+            source,
+            modulePath,
+            `StoreModule.forRoot('${camelize(name)}', {} as ActionReducerMap<any>)`
+        ),
+    ]
+}
+
+function insertRootNgrxImports(source: ts.SourceFile, name: string, modulePath: string): Change[] {
     return [
         ...insertBaseNgrxFeatureRootImports(source, name, modulePath),
         ...insertBaseRootNgrxImports(source, name, modulePath),
         ...addImportToModule(
             source,
             modulePath,
-                `EffectsModule.forRoot([${classify(name)}Effects])`
+            `EffectsModule.forRoot([${classify(name)}Effects])`
         ),
     ];
 }

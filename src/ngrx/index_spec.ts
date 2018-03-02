@@ -33,8 +33,11 @@ describe('Ngrx Schematic', () => {
         const tree = schematicRunner.runSchematic('ngrx', options, appTree);
 
         expect(tree.exists('/apps/myapp/src/app/+state/foo.actions.ts')).toBeTruthy();
+        expect(tree.exists('/apps/myapp/src/app/+state/foo.actions.spec.ts')).toBeTruthy();
         expect(tree.exists('/apps/myapp/src/app/+state/foo.effects.ts')).toBeTruthy();
+        expect(tree.exists('/apps/myapp/src/app/+state/foo.effects.spec.ts')).toBeTruthy();
         expect(tree.exists('/apps/myapp/src/app/+state/foo.reducer.ts')).toBeTruthy();
+        expect(tree.exists('/apps/myapp/src/app/+state/foo.reducer.spec.ts')).toBeTruthy();
     });
 
     it('should add StoreModule.forFeature and EffectsModule.forFeature to app.module', () => {

@@ -19,7 +19,7 @@ describe('<%= className %>Reducer', () => {
     describe('LOAD_DATA_SUCCESS', () => {
 
         it('should set loading, loaded and entities states correctly', () => {
-            const action = new from<%= className %>Actions.LoadDataAction('Test Data');
+            const action = new from<%= className %>Actions.LoadDataAction();
             const state = from<%= className %>Reducer.<%= fileName %>Reducer(initial<%= className %>State, action);
 
             expect(state.loaded).toEqual(false);

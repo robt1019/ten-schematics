@@ -46,7 +46,7 @@ describe('<%= fileName %>', () => {
     describe('loadData', () => {
 
         it('should return a LoadDataSuccessAction with the correct payload', () => {
-            const action = new from<%= className %>.LoadDataAction('Test Data');
+            const action = new from<%= className %>.LoadDataAction();
             const completion = new from<%= className %>.LoadDataSuccessAction('Test Data');
 
             actions$.stream = hot('-a', { a: action });

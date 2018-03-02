@@ -10,8 +10,6 @@ export enum <%= className %>ActionTypes {
 // payloads should be typed with the data that is being fetched
 export class LoadDataAction implements Action {
     readonly type = <%= className %>ActionTypes.LOAD_DATA;
-
-    constructor(public payload: any) {}
 }
 
 export class LoadDataFailureAction implements Action {

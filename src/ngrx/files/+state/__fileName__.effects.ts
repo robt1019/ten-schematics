@@ -9,7 +9,7 @@ import { LoadDataAction, LoadDataSuccessAction, <%= className %>ActionTypes } fr
 export class <%= className %>Effects {
 @Effect() loadData = this.dataPersistence.fetch(<%= className %>ActionTypes.LOAD_DATA, {
         run: (action: LoadDataAction, state: <%= className %>State) => {
-        return new LoadDataSuccessAction(action.payload);
+        return new LoadDataSuccessAction('Test Data');
     },
 
     onError: (action: LoadDataAction, error) => {

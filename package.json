@@ -1,18 +1,27 @@
 {
-  "name": "ten-schematics",
-  "version": "0.0.29",
+  "name": "@ten-group/schematics",
+  "version": "0.0.30",
   "description": "A schematics",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && npm run files && npm run schema && npm run collection",
+    "files": "cp -R src/ngrx/files dist/ngrx",
+    "schema": "cp src/ngrx/schema.json dist/ngrx/schema.json",
+    "collection": "cp src/collection.json dist/collection.json",
     "test": "npm run build && jasmine **/*_spec.js"
   },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.ts",
+    "dist/**/*.json"
+  ],
   "keywords": [
     "schematics"
   ],
   "author": "",
   "license": "MIT",
   "schematics": "./src/collection.json",
-  "dependencies": {
+  "peerDependencies": {
     "@angular-devkit/core": "^0.4.2",
     "@angular-devkit/schematics": "^0.4.2",
     "@nrwl/schematics": "^0.7.4",

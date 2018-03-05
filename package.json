@@ -1,6 +1,6 @@
 {
   "name": "@ten-group/schematics",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "A schematics",
   "scripts": {
     "build": "tsc -p tsconfig.json",

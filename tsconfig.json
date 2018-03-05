@@ -22,7 +22,8 @@
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
+    "declaration": true
   },
   "include": [
     "src/**/*"

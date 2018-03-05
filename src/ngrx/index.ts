@@ -57,7 +57,7 @@ function addModuleImportsAndGenerateFiles(options: NgrxOptions, host: Tree, cont
     ])(host, context);
 }
 
-export default function (options: NgrxOptions) {
+export default function (options: NgrxOptions): any {
 
     const modulePath = options.module ? normalize(options.module) : options.module;
 

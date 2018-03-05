@@ -1,15 +1,20 @@
-# Getting Started With Schematics
+# ten-group schematics
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+This repository contains extensions to the @nrwl/schematics to support any custom schematics needed by ten-group.
 
-### Testing
+It currently only overrides the `ngrx` command, to better support our architecture for ngrx, which is inspired by Todd Motto's course [https://ultimateangular.com/ngrx-store-effects](https://ultimateangular.com/ngrx-store-effects).
 
-To test locally, install `@angular-devkit/schematics` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+All other nrwl schematics are left as detailed here [https://nrwl.io/nx](https://nrwl.io/nx).
 
-Check the documentation with
-```bash
-schematics --help
-```
+All existing nrwl schematic commands are supported as deatiled here [https://nrwl.io/nx/guide-setting-up-ngrx](https://nrwl.io/nx) are supported.
+
+In addition, there is a --useEntityAdapter flag which will use an entityAdapter in the generated reducer file
+
+### Usage:
+
+`ng generate ngrx <command> --collection=@ten-group/schematics`
+ 
+or amend `.angular-cli.json` to use `@ten-group/schematics` instead of the default.
 
 ### Unit Testing
 
@@ -17,12 +22,12 @@ schematics --help
 
 ### Publishing
 
-To publish, simply do:
+To publish any changes to the repository under the ten-group npm package, simply do:
 
 ```bash
 npm run build
 npm publish
 ```
 
-That's it!
+You will need to be added to the @ten-group npm organisation to update the package
  

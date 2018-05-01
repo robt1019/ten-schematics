@@ -2,75 +2,11 @@
   // This is just to indicate to your IDE that there is a schema for collection.json.
   "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
 
-  // TODO: use top level extends syntax as per this https://github.com/nrwl/nx/issues/266 when available
-  //  "extends": "@nrwl/schematics",
   "schematics": {
     "ngrx": {
       "factory": "./ngrx",
-      "description": "generates a reducer file",
+      "description": "generates an action, reducer and effect along with spec files",
       "schema": "./ngrx/schema.json"
-    },
-    "application": {
-      "extends": "@nrwl/schematics:application"
-    },
-    "app": {
-      "extends": "@nrwl/schematics:app"
-    },
-
-    "lib": {
-      "extends": "@nrwl/schematics:lib"
-    },
-    "upgrade-module": {
-      "extends": "@nrwl/schematics:upgrade-module"
-    },
-
-    "downgrade-module": {
-      "extends": "@nrwl/schematics: downgrade-module"
-    },
-
-    "class": {
-      "aliases": [ "cl" ],
-      "extends": "@schematics/angular:class"
-    },
-
-    "component": {
-      "aliases": [ "c" ],
-      "extends": "@schematics/angular:component"
-    },
-
-    "directive": {
-      "aliases": [ "d" ],
-      "extends": "@schematics/angular:directive"
-    },
-
-    "enum": {
-      "aliases": [ "e" ],
-      "extends": "@schematics/angular:enum"
-    },
-
-    "guard": {
-      "aliases": [ "g" ],
-      "extends": "@schematics/angular:guard"
-    },
-
-    "interface": {
-      "aliases": [ "i" ],
-      "extends": "@schematics/angular:interface"
-    },
-
-    "module": {
-      "aliases": [ "m" ],
-      "extends": "@schematics/angular:module"
-    },
-
-    "pipe": {
-      "aliases": [ "p" ],
-      "extends": "@schematics/angular:pipe"
-    },
-
-    "service": {
-      "aliases": [ "s" ],
-      "extends": "@schematics/angular:service"
     }
   }
 }

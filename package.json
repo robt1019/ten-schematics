@@ -1,6 +1,6 @@
 {
   "name": "@ten-group/schematics",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "schematics to support ten groups workflow",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -18,7 +18,7 @@
   "author": "",
   "license": "MIT",
   "schematics": "./src/collection.json",
-  "peerDependencies": {
+  "dependencies": {
     "@angular-devkit/core": "^0.0.29",
     "@angular-devkit/schematics": "^0.0.52",
     "@nrwl/schematics": "^0.7.3"

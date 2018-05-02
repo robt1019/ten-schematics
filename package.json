@@ -1,6 +1,6 @@
 {
   "name": "@ten-group/schematics",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "schematics to support ten groups workflow",
   "scripts": {
     "build": "tsc -p tsconfig.json",

@@ -1,6 +1,6 @@
 {
   "name": "@ten-group/schematics",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "schematics to support ten groups workflow",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -19,14 +19,15 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^0.0.29",
-    "@angular-devkit/schematics": "^0.0.52",
-    "@nrwl/schematics": "^0.7.3"
+    "@angular-devkit/core": "0.0.29",
+    "@angular-devkit/schematics": "0.0.52",
+    "@nrwl/schematics": "0.7.3",
+    "@schematics/angular": "0.1.17"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.6.0",
-    "@types/node": "^8.0.31",
-    "jasmine": "^2.8.0",
-    "typescript": "~2.6.2"
+    "@types/jasmine": "2.6.0",
+    "@types/node": "8.0.31",
+    "jasmine": "2.8.0",
+    "typescript": "2.6.2"
   }
 }

@@ -15,6 +15,7 @@ import { camelize, capitalize, classify, dasherize } from '@angular-devkit/core/
 import { NgrxOptions } from './schema';
 import { normalize } from '@angular-devkit/core';
 import * as path from 'path';
+import { upperCase } from 'lodash';
 import { addNgrxImportsToNgModule } from './utils/file-utils';
 
 function setupNgrxTemplate(options: NgrxOptions): Source {
@@ -23,6 +24,7 @@ function setupNgrxTemplate(options: NgrxOptions): Source {
     const capitalizedName = capitalize(options.name);
     const fileName = dasherize(options.name);
     const camelizedName = camelize(options.name);
+    const constName = upperCase(options.name).replace(/ /g, '_');
     const useEntityAdapter = options.useEntityAdapter;
 
    return apply(url('./files'), [
@@ -32,6 +34,7 @@ function setupNgrxTemplate(options: NgrxOptions): Source {
             capitalizedName,
             fileName,
             camelizedName,
+            constName,
         }),
         move(path.dirname(options.module)),
     ]);

@@ -1,32 +1,30 @@
 import { Action } from '@ngrx/store';
-import { HttpErrorResponse } from '@angular/common/http';
+
+import { <%= className %> } from './<%= fileName %>.reducer'
 
 export enum <%= className %>ActionTypes {
-    LOAD_DATA = '[<%= className %>] Load Data',
-    LOAD_DATA_FAILURE = '[<%= className %>] Load Data Failure',
-    LOAD_DATA_SUCCESS = '[<%= className %>] Load Data Success',
+    LOAD_<%= constName %> = '[<%= className %>] Load <%= fileName %>',
+    LOAD_<%= constName %>_FAILURE = '[<%= className %>] Load <%= fileName %> Failure',
+    LOAD_<%= constName %>_SUCCESS = '[<%= className %>] Load <%= fileName %> Success',
 }
 
-// payloads should be typed with the data that is being fetched
-export class LoadDataAction implements Action {
-    readonly type = <%= className %>ActionTypes.LOAD_DATA;
+export class Load<%= className %>Action implements Action {
+    public readonly type = <%= className %>ActionTypes.LOAD_<%= constName %>;
 }
 
-export class LoadDataFailureAction implements Action {
-    readonly type = <%= className %>ActionTypes.LOAD_DATA_FAILURE;
+export class Load<%= className %>FailureAction implements Action {
+    public readonly type = <%= className %>ActionTypes.LOAD_<%= constName %>_FAILURE;
 
-    constructor(public payload: HttpErrorResponse | Error) {
-        console.error(payload);
-    }
+    constructor(public payload: { error: any }) {}
 }
 
-export class LoadDataSuccessAction implements Action {
-    readonly type = <%= className %>ActionTypes.LOAD_DATA_SUCCESS;
+export class Load<%= className %>SuccessAction implements Action {
+    public readonly type = <%= className %>ActionTypes.LOAD_<%= constName %>_SUCCESS;
 
-    constructor(public payload: any) {}
+    constructor(public payload: { <%= camelizedName %>: <%= className %>[] }) {}
 }
 
 export type <%= className %>Action =
-    LoadDataAction
-    | LoadDataFailureAction
-    | LoadDataSuccessAction;
+    | Load<%= className %>Action
+    | Load<%= className %>FailureAction
+    | Load<%= className %>SuccessAction;

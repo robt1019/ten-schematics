@@ -4,7 +4,7 @@
   "description": "schematics to support ten groups workflow",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine **/*_spec.js"
+    "test": "npm run build && jasmine src/**/*.spec.js"
   },
   "repository": {
     "type": "git",

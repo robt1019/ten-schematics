@@ -21,14 +21,14 @@ export interface <%= className %>FeatureStore {
 }
 
 export interface <%= className %>State <% if(useEntityAdapter) { %> extends EntityState<any><% } %> {<% if(!useEntityAdapter) { %>
-  <%= camelizedName %><% if(useEntityAdapter) { %>[]<% } %>: any;<% } %>
+  <%= camelizedName %>: <%= className %>[];<% } %>
   loading: boolean;
   loaded: boolean;
   errors: any[];
 }
 
 export const initial<%= className %>Data = <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.getInitialState( <% } %> {<% if(!useEntityAdapter) { %>
-  <%= camelizedName %>: undefined,<% } %>
+  <%= camelizedName %>: [],<% } %>
   loading: false,
   loaded: false,
   errors: [],

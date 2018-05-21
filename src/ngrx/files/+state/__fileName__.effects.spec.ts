@@ -48,7 +48,7 @@ describe('<%= fileName %>', () => {
     it('should return a Load<%= className %>SuccessAction with the correct payload', () => {
       const action = new from<%= className %>.Load<%= className %>Action();
       const completion = new from<%= className %>.Load<%= className %>SuccessAction(
-        { <%= camelizedName %>: { id: '1', prop1: 'Test Data' }}
+        { <%= camelizedName %>: [{ id: '1', prop1: 'Test Data' }]}
       );
 
       actions$.stream = hot('-a', { a: action });

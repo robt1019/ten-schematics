@@ -23,7 +23,7 @@ describe('<%= className %>Reducer', () => {
 
     it('should set loading, loaded and entities states correctly', () => {
 
-      const payload = { <%= camelizedName %>: { id: '1', prop1: 'Test Data' } };
+      const payload = { <%= camelizedName %>: [{ id: '1', prop1: 'Test Data' }] };
 
       const action = new from<%= className %>Actions.Load<%= className %>SuccessAction(payload);
       const state = from<%= className %>Reducer.<%= camelizedName %>Reducer(initial<%= className %>Data, action);

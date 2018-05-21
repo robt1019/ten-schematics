@@ -26,7 +26,7 @@ describe('<%= className %> Actions', () => {
 
   describe('Load<%= className %>Success', () => {
     it('should create a LOAD_<%= constName %>_SUCCESS action with a payload', () => {
-      const payload = { <%= camelizedName %>: { id: '1', prop1: 'Test Data' } };
+      const payload = { <%= camelizedName %>: [{ id: '1', prop1: 'Test Data' }] };
       const action = new from<%= className %>Actions.Load<%= className %>SuccessAction(payload);
 
       expect({ ...action }).toEqual({

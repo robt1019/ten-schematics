@@ -1,39 +1,38 @@
-import { HttpErrorResponse } from '@angular/common/http';
-
 import * as from<%= className %>Actions from './<%= fileName %>.actions';
+import { <%= className %> } from './<%= fileName %>.reducer';
 
 describe('<%= className %> Actions', () => {
-    describe('LoadData', () => {
-        it('should create a LOAD_DATA action', () => {
-            const action = new from<%= className %>Actions.LoadDataAction();
+  describe('LoadData', () => {
+    it('should create a LOAD_<%= constName %> action', () => {
+      const action = new from<%= className %>Actions.Load<%= className %>Action();
 
-            expect({ ...action }).toEqual({
-                type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_DATA,
-            });
-        });
+      expect({ ...action }).toEqual({
+          type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_<%= constName %>,
+       });
     });
+  });
 
-    describe('LoadDataFailure', () => {
-        it('should create a LOAD_DATA_FAILURE action with HttpErrorResponse payload', () => {
-            const payload = new HttpErrorResponse({ status: 400 });
-            const action = new from<%= className %>Actions.LoadDataFailureAction(payload);
+  describe('Load<%= className %>Failure', () => {
+    it('should create a LOAD_<%= constName %>_FAILURE action with any errors[] payload', () => {
+      const payload: any = [];
+      const action = new from<%= className %>Actions.Load<%= className %>FailureAction(payload);
 
-            expect({ ...action }).toEqual({
-                type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_DATA_FAILURE,
-                payload,
-            });
-        });
+      expect({ ...action }).toEqual({
+        type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_<%= constName %>_FAILURE,
+        payload,
+      });
     });
+  });
 
-    describe('LoadDataSuccess', () => {
-        it('should create a LOAD_DATA_SUCCESS action with a payload', () => {
-            const payload: any = 'Test Data';
-            const action = new from<%= className %>Actions.LoadDataSuccessAction(payload);
+  describe('Load<%= className %>Success', () => {
+    it('should create a LOAD_<%= constName %>_SUCCESS action with a payload', () => {
+      const payload = { <%= camelizedName %>: { id: '1', prop1: 'Test Data' } };
+      const action = new from<%= className %>Actions.Load<%= className %>SuccessAction(payload);
 
-            expect({ ...action }).toEqual({
-                type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_DATA_SUCCESS,
-                payload,
-            });
-        });
+      expect({ ...action }).toEqual({
+        type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_<%= constName %>_SUCCESS,
+        payload,
+      });
     });
+  });
 });

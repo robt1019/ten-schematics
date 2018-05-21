@@ -10,49 +10,51 @@ import {<%= className %>Effects} from './<%= fileName %>.effects';
 import * as from<%= className %> from './<%= fileName %>.actions';
 
 export class TestActions extends Actions {
-    constructor() {
-        super(empty());
-    }
+  constructor() {
+    super(empty());
+  }
 
-    set stream(source: Observable<any>) {
-        this.source = source;
-    }
+  set stream(source: Observable<any>) {
+    this.source = source;
+  }
 }
 
 export function getActions() {
-    return new TestActions();
+  return new TestActions();
 }
 
 describe('<%= fileName %>', () => {
-    let actions$: TestActions;
-    let effects: <%= className %>Effects;
+  let actions$: TestActions;
+  let effects: <%= className %>Effects;
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [StoreModule.forRoot({})],
-            providers: [
-                DataPersistence,
-                <%= className %>Effects,
-                {
-                    provide: Actions, useFactory: getActions
-                },
-            ],
-        });
-
-        actions$ = TestBed.get(Actions);
-        effects = TestBed.get(<%= className %>Effects);
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [StoreModule.forRoot({})],
+      providers: [
+        DataPersistence,
+        <%= className %>Effects,
+        {
+          provide: Actions, useFactory: getActions
+        },
+      ],
     });
 
-    describe('loadData', () => {
+    actions$ = TestBed.get(Actions);
+    effects = TestBed.get(<%= className %>Effects);
+  });
 
-        it('should return a LoadDataSuccessAction with the correct payload', () => {
-            const action = new from<%= className %>.LoadDataAction();
-            const completion = new from<%= className %>.LoadDataSuccessAction('Test Data');
+  describe('load<%= className %>', () => {
 
-            actions$.stream = hot('-a', { a: action });
-            const expected = cold('-c', { c: completion });
+    it('should return a Load<%= className %>SuccessAction with the correct payload', () => {
+      const action = new from<%= className %>.Load<%= className %>Action();
+      const completion = new from<%= className %>.Load<%= className %>SuccessAction(
+        { <%= camelizedName %>: { id: '1', prop1: 'Test Data' }}
+      );
 
-            expect(effects.loadData).toBeObservable(expected);
-        });
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-c', { c: completion });
+
+      expect(effects.load<%= className %>).toBeObservable(expected);
     });
+  });
 });

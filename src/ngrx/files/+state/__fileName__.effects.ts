@@ -17,7 +17,7 @@ export class <%= className %>Effects {
       {
       run: (action: Load<%= className %>Action, state: <%= className %>FeatureStore) => {
         return new Load<%= className %>SuccessAction({
-          <%= camelizedName %>: { id: '1', prop1: 'property' },
+          <%= camelizedName %>: { id: '1', prop1: 'Test Data' },
         });
       },
 

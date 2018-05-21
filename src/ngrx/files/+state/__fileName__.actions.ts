@@ -21,7 +21,7 @@ export class Load<%= className %>FailureAction implements Action {
 export class Load<%= className %>SuccessAction implements Action {
   public readonly type = <%= className %>ActionTypes.LOAD_<%= constName %>_SUCCESS;
 
-  constructor(public payload: { <%= camelizedName %>: <%= className %><% if(useEntityAdapter) { %>[]<% } %>:}) {}
+  constructor(public payload: { <%= camelizedName %>: <%= className %><% if(useEntityAdapter) { %>[]<% } %> }) {}
 }
 
 export type <%= className %>Action =

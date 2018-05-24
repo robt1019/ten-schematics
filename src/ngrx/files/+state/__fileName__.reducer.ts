@@ -5,6 +5,7 @@ import { <%= className %>Action, <%= className %>ActionTypes } from './<%= fileN
 <% if(useEntityAdapter) { %>
 const <%= camelizedName %>Adapter: EntityAdapter<<%= className %>> = createEntityAdapter<<%= className %>>();
 <% } %>
+import { ErrorResponse } from '@ten-platform-app/core/error-handling';
 // Entity type. This should be moved to its own file
 export interface <%= className %> {
   id: string;
@@ -24,14 +25,14 @@ export interface <%= className %>State <% if(useEntityAdapter) { %> extends Enti
   <%= camelizedName %>: <%= className %>[];<% } %>
   loading: boolean;
   loaded: boolean;
-  errors: any[];
+  error?: ErrorResponse;
 }
 
 export const initial<%= className %>Data = <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.getInitialState( <% } %> {<% if(!useEntityAdapter) { %>
   <%= camelizedName %>: [],<% } %>
   loading: false,
   loaded: false,
-  errors: [],
+  error: undefined,
 }<% if(useEntityAdapter) { %>)<% } %>;
 
 export function <%= camelizedName %>Reducer(
@@ -43,7 +44,7 @@ export function <%= camelizedName %>Reducer(
       return <% if(useEntityAdapter) { %><%= camelizedName %>Adapter.removeAll( <% } %>{
         ...state,
         loading: true,
-        errors: [],
+        error: undefined,
       }<% if(useEntityAdapter) { %>)<% } %>;
     }
 
@@ -55,7 +56,7 @@ export function <%= camelizedName %>Reducer(
       <%= camelizedName %>: action.payload.<%= camelizedName %>,<% } %>
         loading: false,
         loaded: true,
-        errors: [],
+        error: undefined,
       }<% if(useEntityAdapter) { %>)<% } %>;
     }
 
@@ -64,7 +65,7 @@ export function <%= camelizedName %>Reducer(
         ...state,
         loading: false,
         loaded: false,
-        errors: action.payload.errors
+        error: action.payload.error
       }<% if(useEntityAdapter) { %>)<% } %>;
     }
 
@@ -97,6 +98,6 @@ export const get<%= className %>LoadedState = createSelector(
 );
 export const get<%= className %>LoadError = createSelector(
   get<%= className %>FeatureState,
-  (state: <%= className %>State) => state.errors
+  (state: <%= className %>State) => state.error
 );
 

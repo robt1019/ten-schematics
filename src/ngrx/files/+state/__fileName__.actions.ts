@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 
-import { <%= className %> } from './<%= fileName %>.reducer'
+import { <%= className %> } from './<%= fileName %>.reducer';
+import { ErrorResponse } from '@ten-platform-app/core/error-handling';
 
 export enum <%= className %>ActionTypes {
   LOAD_<%= constName %> = '[<%= className %>] Load <%= fileName %>',
@@ -15,7 +16,7 @@ export class Load<%= className %>Action implements Action {
 export class Load<%= className %>FailureAction implements Action {
   public readonly type = <%= className %>ActionTypes.LOAD_<%= constName %>_FAILURE;
 
-  constructor(public payload: { errors: any }) {}
+  constructor(public payload: { error: ErrorResponse }) {}
 }
 
 export class Load<%= className %>SuccessAction implements Action {

@@ -1,5 +1,5 @@
 import * as from<%= className %>Actions from './<%= fileName %>.actions';
-import { <%= className %> } from './<%= fileName %>.reducer';
+import { ErrorResponse } from '@ten-platform-app/core/error-handling';
 
 describe('<%= className %> Actions', () => {
   describe('LoadData', () => {
@@ -13,13 +13,16 @@ describe('<%= className %> Actions', () => {
   });
 
   describe('Load<%= className %>Failure', () => {
-    it('should create a LOAD_<%= constName %>_FAILURE action with any errors[] payload', () => {
-      const payload: any = [];
-      const action = new from<%= className %>Actions.Load<%= className %>FailureAction(payload);
+    it('should create a LOAD_<%= constName %>_FAILURE action with ErrorResponse payload', () => {
+      const payload: ErrorResponse = {
+        errors: [],
+        validationErrors: [],
+      };
+      const action = new from<%= className %>Actions.Load<%= className %>FailureAction({ error: payload });
 
       expect({ ...action }).toEqual({
         type: from<%= className %>Actions.<%= className %>ActionTypes.LOAD_<%= constName %>_FAILURE,
-        payload,
+        payload: { error: payload },
       });
     });
   });

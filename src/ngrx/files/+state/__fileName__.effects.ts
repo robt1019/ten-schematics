@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 
 import {
   Load<%= className %>Action,
   Load<%= className %>SuccessAction,
+  Load<%= className %>FailureAction,
   <%= className %>ActionTypes
 } from './<%= fileName %>.actions';
 import { <%= className %>FeatureStore } from './<%= fileName %>.reducer'
@@ -22,13 +23,12 @@ export class <%= className %>Effects {
       },
 
       onError: (action: Load<%= className %>Action, error) => {
-        console.error('Error', error);
+        return new Load<%= className %>FailureAction({ error })
       }
     }
   );
 
   constructor(
-    private actions: Actions,
     private dataPersistence: DataPersistence<<%= className %>FeatureStore>,
   ) {}
 }

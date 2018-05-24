@@ -6,6 +6,7 @@ import {
   get<%= className %>LoadError,
 } from './<%= fileName %>.reducer';
 import * as from<%= className %>Actions from './<%= fileName %>.actions';
+import { ErrorResponse } from '@ten-platform-app/core/error-handling';
 
 describe('<%= className %>Reducer', () => {
 
@@ -30,25 +31,27 @@ describe('<%= className %>Reducer', () => {
 
       expect(state.loaded).toEqual(true);
       expect(state.loading).toEqual(false);
-      expect(state.errors).toEqual([]);
+      expect(state.error).toEqual(undefined);
     });
   });
 
 describe('LOAD_<%= constName %>_FAILURE', () => {
 
   it('should set loading, loaded and entities states correctly', () => {
-    const mockError: any = {
-     errors: [{
+    const mockError: ErrorResponse = {
+      errors: [{
         code: '12345',
         message: 'errors',
-      }]
+        displayMessage: 'Here are some errors, user',
+      }],
+      validationErrors: [],
     };
-    const action = new from<%= className %>Actions.Load<%= className %>FailureAction(mockError);
+    const action = new from<%= className %>Actions.Load<%= className %>FailureAction({ error: mockError });
     const state = from<%= className %>Reducer.<%= camelizedName %>Reducer(initial<%= className %>Data, action);
 
     expect(state.loaded).toEqual(false);
     expect(state.loading).toEqual(false);
-    expect(state.errors).toEqual(mockError.errors);
+    expect(state.error).toEqual(mockError);
   });
 });
 
@@ -66,7 +69,7 @@ describe('LOAD_<%= constName %>_FAILURE', () => {
     });
     describe('get<%= className %>LoadError', () => {
       it('should return the loading slice of state', () => {
-        expect(get<%= className %>LoadError.projector(initial<%= className %>Data)).toBe(initial<%= className %>Data.errors);
+        expect(get<%= className %>LoadError.projector(initial<%= className %>Data)).toBe(initial<%= className %>Data.error);
       });
     });
   });

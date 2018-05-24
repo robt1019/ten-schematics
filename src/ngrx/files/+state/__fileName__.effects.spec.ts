@@ -23,7 +23,7 @@ export function getActions() {
   return new TestActions();
 }
 
-describe('<%= fileName %>', () => {
+describe('<%= className %>Effects', () => {
   let actions$: TestActions;
   let effects: <%= className %>Effects;
 

@@ -4,6 +4,9 @@ This repository contains schematics for generating boilerplate code needed by te
 
 Currently it only has a schematic for generating ngrx code (actions, reducer and effects files along with spec files).
 
+### Installation:
+`npm install --save-dev @ten-group/schematics`
+
 ### Usage:
 
 `ng generate ngrx --collection=@ten-group/schematics <name> <module> <options ...>`

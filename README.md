@@ -1,6 +1,6 @@
 # ten-group schematics
 
-This repository contains schematics for generating boilerplate code needed by ten-group.
+This repository contains schematics for generating specific boilerplate code.
 
 Currently it only has a schematic for generating ngrx code (actions, reducer and effects files along with spec files).
 

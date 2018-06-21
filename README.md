@@ -24,7 +24,7 @@ cd into the newly created workspace folder and run:
 
 then run `ng generate ngrx --collection=@ten-group/schematics user --module=src/app/app.module.ts --root`
 
-This should generate you a `+state` folder with a feature level ngrx store in it.
+This should generate you a `+state` folder with a root level ngrx store in it.
 
 ### Required
 

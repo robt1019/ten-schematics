@@ -1,15 +1,30 @@
 # ten-group schematics
 
-This repository contains schematics for generating specific boilerplate code.
+This repository contains custom Angular schematics for generating specific boilerplate code for an Angular Nrwl Nx application, using the Angular CLI.
 
 Currently it only has a schematic for generating ngrx code (actions, reducer and effects files along with spec files).
 
 ### Installation:
+
 `npm install --save-dev @ten-group/schematics`
 
 ### Usage:
 
 `ng generate ngrx --collection=@ten-group/schematics <name> <module> <options ...>`
+
+If you don't currently have an Angular Nrwl Nx project and want to try the schematics out, follow the quick start guide here:
+
+https://github.com/nrwl/nx
+
+cd into the newly created workspace folder and run: 
+
+`npm install`
+
+`npm install --save-dev @ten-group/schematics`
+
+then run `ng generate ngrx --collection=@ten-group/schematics user --module=src/app/app.module.ts --root`
+
+This should generate you a `+state` folder with a feature level ngrx store in it.
 
 ### Required
 

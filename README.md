@@ -1,3 +1,9 @@
+# Deprecated
+
+This is now deprecated as there have been breaking changes to the @angular/cli and I can't be bothered to update it to work with them :)
+
+For anyone who's curious the change is that the `ng generate` command can no longer be passed a `--collection` flag.
+
 # ten-group schematics
 
 This repository contains custom Angular schematics for generating specific boilerplate code for an Angular Nrwl Nx application, using the Angular CLI.
